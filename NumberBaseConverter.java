@@ -7,11 +7,14 @@ public class NumberBaseConverter {
     public static final int MAX_BASE_TARGET = 35;
     private int baseTarget;
 
+    public NumberBaseConverter() throws Exception {
+        this(10);
+    }
 
     public NumberBaseConverter(int baseTarget) throws Exception {
         if (baseTarget > MAX_BASE_TARGET) {
             throw new Exception(
-                    String.format("%d is larger than the maximum base %d", baseTarget, MAX_BASE_TARGET)
+                    String.format("%d is larger than the maximum base %d%n", baseTarget, MAX_BASE_TARGET)
             );
         }
         this.baseTarget = baseTarget;
@@ -32,16 +35,6 @@ public class NumberBaseConverter {
             decimalEquivalent /= baseTarget;
         }
         return stringBuilder.toString();
-    }
-
-    private char convertDigitToChar(int digit) throws Exception {
-        if (digit < 0 || digit >= baseTarget) {
-            throw new Exception(String.format("%d cannot be converted to a digit in base %d", digit, baseTarget));
-        }
-        if (digit < 10) {
-            return String.valueOf(digit).charAt(0);
-        }
-        return (char) ('A' + digit - 10);
     }
 
     long convertOriginToDecimal(NumberWithBase numberWithBase) throws Exception {
@@ -66,13 +59,23 @@ public class NumberBaseConverter {
         if (zero <= digit && digit <= nine) {
             return digit - zero;
         }
-        char A = 'A';
-        char Z = 'Z';
-        if (A <= digit && digit <= Z) {
-            return 10 + digit - A;
+        char a = 'a';
+        char z = 'z';
+        if (a <= digit && digit <= z) {
+            return 10 + digit - a;
         }
         throw new Exception(
-                String.format("%c is not included in the range [0-9A-Z]", digit)
+                String.format("%c is not included in the range [0-9a-z]%n", digit)
         );
+    }
+
+    private char convertDigitToChar(int digit) throws Exception {
+        if (digit < 0 || digit >= baseTarget) {
+            throw new Exception(String.format("%d cannot be converted to a digit in base %d%n", digit, baseTarget));
+        }
+        if (digit < 10) {
+            return String.valueOf(digit).charAt(0);
+        }
+        return (char) ('a' + digit - 10);
     }
 }
