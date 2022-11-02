@@ -12,7 +12,19 @@ Also, it might be more convenient for users if the program didn't ask for the ba
 
 To convert a number from the source base to the target base, I first convert it to the decimal system and then convert the decimal number to the target base.
 
-Numbers might be larger than one would expect, so I use BigInteger instead of Int or Long to avoid errors.
+Furthermore, fractional numbers can also be converted from one base to another. To convert a fractional number from one base to another, I split the number into two parts: integer and fractional. Subsequently I convert each part from their base to decimal independently and then convert them (once again, separately) to the target base. Finally, I combine both parts and get the final result!
+
+The most challenging part is converting the decimal fractional part to the target base. Since I already know how to convert fractions from decimal to binary, it is not a problem for me! This is my algorithm for converting fractions from decimal to any base, M:
+1. Remove the dot and everything before the dot. (Converting whole numbers has a different algorithm)
+2. Count the number of digits to the right of the dot, save the count to n.
+3. Multiply by M 
+4. Divide by the nth power of 10 (Integer division)
+5. Write the result of the integer division
+6. Take the remainder by the nth power of 10
+7a. If the remainder is zero, the conversion is finished
+7b. Else go back to step 3.
+
+Input numbers might be larger than one would expect, so I use BigInteger or BigDecimal instead of Long or Double to avoid errors.
 
 My program has a two-level menu:
 
