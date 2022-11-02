@@ -7,7 +7,6 @@ public class NumberBaseConverter {
 
     public static final int MAX_BASE_TARGET = 36;
     public static final int MIN_BASE_TARGET = 2;
-    public static final int DEFAULT_BASE_TARGET = 10;
     private final int baseTarget;
     private final BigInteger baseTargetBigInteger;
 

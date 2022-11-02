@@ -19,10 +19,6 @@ public class NumberWithBase {
         this.decimalValue = convertToDecimal();
     }
 
-    public BigInteger getDecimalValue() {
-        return decimalValue;
-    }
-
     private BigInteger convertToDecimal() throws NumberBaseException {
         BigInteger sum = BigInteger.ZERO;
         for (int index = 0; index < representation.length(); index++) {
@@ -36,9 +32,11 @@ public class NumberWithBase {
         }
         return sum;
     }
+
     private BigInteger calculateEachDigitsValue(int digit, int power) {
         return BigDecimal.valueOf(digit * Math.pow(base, power)).toBigInteger();
     }
+
     static int convertCharToDigit(char digit) {
         if ('0' <= digit && digit <= '9') {
             return digit - '0';
@@ -56,6 +54,10 @@ public class NumberWithBase {
         if (representation.isBlank()) {
             throw new NumberBaseException();
         }
+    }
+
+    public BigInteger getDecimalValue() {
+        return decimalValue;
     }
 
     public String getRepresentation() {

@@ -22,7 +22,7 @@ public class UserInterface {
                 NumberBaseConverter numberBaseConverter = new NumberBaseConverter(baseTarget);
                 while (true) {
                     printSecondPrompt(baseOrigin, baseTarget);
-                    String secondCommand = scanner.next().toLowerCase();
+                    String secondCommand = scanner.next().trim().toLowerCase();
                     if (secondCommand.equals("/back")) {
                         System.out.println();
                         break;
