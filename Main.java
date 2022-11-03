@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        UserInterface ui = new UserInterface(scanner);
+        UserInterface ui = new CommandLineInterface(scanner);
 
         ui.run();
     }

@@ -5,33 +5,23 @@ import java.math.BigInteger;
 
 public class NumberBaseConverter {
 
-    public static final int MAX_BASE_TARGET = 36;
-    public static final int MIN_BASE_TARGET = 2;
-    private final int baseTarget;
-    private final BigInteger baseTargetBigInteger;
+    private final NumeralSystem numeralSystem;
 
 
-    public NumberBaseConverter(int baseTarget) throws BaseConverterException {
-        this.baseTarget = baseTarget;
+    public NumberBaseConverter(int baseTarget) throws NumeralSystem.BaseError {
+        this.numeralSystem = new NumeralSystem(baseTarget);
         this.baseTargetBigInteger = BigInteger.valueOf(baseTarget);
-        validateBase();
     }
 
-    private void validateBase() throws BaseConverterException {
-        if (baseTarget < MIN_BASE_TARGET || MAX_BASE_TARGET < baseTarget) {
-            throw new BaseConverterException(baseTarget);
-        }
-    }
-
-    public NumberWithBase convert(NumberWithBase numberWithBase) throws BaseConverterException, NumberWithBase.NumberBaseException {
-        BigInteger decimalEquivalent = numberWithBase.getDecimalValue();
+    public NumberWithBase convert(NumberWithBase numberWithBase) throws BaseConverterException, WholeNumberWithBase.NumberBaseException {
+        BigDecimal decimalEquivalent = numberWithBase.getDecimalValue();
         String result = convertDecimalToTargetBase(decimalEquivalent);
-        return new NumberWithBase(result, baseTarget);
+        return new WholeNumberWithBase(result, baseTarget);
     }
 
-    private String convertDecimalToTargetBase(BigInteger decimalEquivalent) throws BaseConverterException {
+    private String convertDecimalToTargetBase(BigDecimal decimalEquivalent) throws BaseConverterException {
         StringBuilder stringBuilder = new StringBuilder();
-        while (decimalEquivalent.compareTo(BigInteger.ZERO) > 0) {
+        while (decimalEquivalent.compareTo(BigDecimal.ZERO) > 0) {
             int digit = decimalEquivalent.remainder(baseTargetBigInteger).intValue();
             char character = validateAndConvertDigitToChar(digit);
             stringBuilder.insert(0, character);
