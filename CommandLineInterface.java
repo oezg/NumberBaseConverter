@@ -19,8 +19,9 @@ public class CommandLineInterface implements UserInterface {
             try {
                 int baseOrigin = Integer.parseInt(firstCommand);
                 int baseTarget = scanner.nextInt();
-                NumeralSystem numeralSystem = new NumeralSystem(baseOrigin);
-                NumberBaseConverter numberBaseConverter = new NumberBaseConverter(baseTarget);
+                NumeralSystem numeralSystemOrigin = new NumeralSystem(baseOrigin);
+                NumeralSystem numeralSystemTarget = new NumeralSystem(baseTarget);
+                NumberBaseConverter numberBaseConverter = new NumberBaseConverter(numeralSystemTarget);
                 while (true) {
                     printSecondPrompt(baseOrigin, baseTarget);
                     String secondCommand = scanner.next().trim().toLowerCase();
@@ -28,11 +29,12 @@ public class CommandLineInterface implements UserInterface {
                         System.out.println();
                         break;
                     }
-                    NumberWithBase numberWithBase = numeralSystem.getNumber(secondCommand);
+                    NumberWithBase numberWithBase = numeralSystemOrigin.getNumber(secondCommand);
                     NumberWithBase result = numberBaseConverter.convert(numberWithBase);
                     System.out.printf("Conversion result: %s%n%n", result.toString());
                 }
-            } catch (BaseConverterException | WholeNumberWithBase.NumberBaseException | NumeralSystem.BaseError e) {
+            } catch (WholeNumberWithBase.NumberBaseException | NumeralSystem.BaseError |
+                     FractionalNumberWithBase.PluralRadixPointsError e) {
                 System.out.println(e.getMessage());
             } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println("Please enter two integer numbers separated by a space as source base and target " +

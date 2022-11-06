@@ -12,8 +12,7 @@ public class NumeralSystem {
         }
     }
 
-
-    public NumberWithBase getNumber(String representation) throws WholeNumberWithBase.NumberBaseException, BaseError {
+    public NumberWithBase getNumber(String representation) throws BaseError, NumberWithBase.PluralRadixPointsError, NumberWithBase.NumberBaseException {
         if (representation.contains(".")) {
             return new FractionalNumberWithBase(representation, this);
         }
