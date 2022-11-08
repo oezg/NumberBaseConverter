@@ -4,10 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CommandLineInterface implements UserInterface {
-    private final Scanner scanner;
-    public CommandLineInterface(Scanner scanner) {
-        this.scanner = scanner;
-    }
+    private final Scanner scanner =new Scanner(System.in);;
 
     public void run() {
         while (true) {
